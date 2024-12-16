@@ -1,12 +1,13 @@
+from app.db import db
 from app.models.user_model import User
-from app import db  # Assuming you're using SQLAlchemy for ORM
 
-def add_user(data):
-    user = User(name=data['name'], age=data['age'])
-    db.session.add(user)
+def add_user(name, age):
+    """Adds a user to the database."""
+    new_user = User(name=name, age=age)
+    db.session.add(new_user)
     db.session.commit()
-    return user.to_dict()
+    return new_user
 
 def get_users():
-    users = User.query.all()
-    return [user.to_dict() for user in users]
+    """Fetches all users from the database."""
+    return User.query.all()

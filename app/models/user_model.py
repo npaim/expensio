@@ -1,9 +1,13 @@
-from app import db
+from app.db import db
 
 class User(db.Model):
+    __tablename__ = 'users'
+    __table_args__ = {'schema': 'expensio'}
+    
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
+    name = db.Column(db.String(50))
     age = db.Column(db.Integer)
 
-    def to_dict(self):
-        return {"id": self.id, "name": self.name, "age": self.age}
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
